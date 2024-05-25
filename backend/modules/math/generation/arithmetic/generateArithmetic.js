@@ -1,6 +1,6 @@
 
-const typesOfArithmeticOperations = require('./../../statics/math/arithmeticOperations/typesOfArithmeticOperations.js');
-const possibleArithmeticInstructions = require('./../../statics/problemInstructions/arithmetic/arithmeticProblemInstructions.js');
+const typesOfArithmeticOperations = require('./../../../../statics/math/arithmeticOperations/typesOfArithmeticOperations');
+const possibleArithmeticInstructions = require('../../../../statics/problemInstructions/arithmetic/arithmeticProblemInstructions');
 
 const generateArithmeticProblem = () => {
 
