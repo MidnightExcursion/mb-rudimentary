@@ -1,9 +1,10 @@
-const handleAnswer = require('../modules/math/handleAnswer');
+const handleAnswer = require('../websocket/handleAnswer');
 const generateProblems = require('../modules/math/problemGeneration');
 
 const handleConnection = (websocket, matchmakingQueue) => {
 
     websocket.on('message', (clientData) => {
+        
         const data = JSON.parse(clientData);
 
         if (data.type === 'joinQueue') {

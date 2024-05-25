@@ -1,3 +1,4 @@
+// -------------------------------------------------
 
 // Native Package | HTTP
 const http = require('http');
@@ -7,6 +8,8 @@ const express = require('express');
 
 // External Package | ws
 const WebSocket = require('ws');
+
+// -------------------------------------------------
 
 // (1): Import the required WebSocket logic:
 const { handleConnection } = require('./websocket/websocketLogic');
@@ -18,8 +21,7 @@ const expressServer = express();
 const httpServer = http.createServer(expressServer);
 
 // (4): Set up a WebSocket Server using the HTTP serveer:
-const WebSocketServer = new WebSocket.Server({ httpServer });
-
+const WebSocketServer = new WebSocket.Server({ server: httpServer });
 
 DEVELOPMENT_PORT = 8080
 
@@ -34,6 +36,6 @@ WebSocketServer.on('connection', (websocket) => {
     handleConnection(websocket, matchmakingQueue);
 });
 
-server.listen(DEVELOPMENT_PORT, () => {
+httpServer.listen(DEVELOPMENT_PORT, () => {
     console.log(`Server is listening on port ${DEVELOPMENT_PORT}`);
 });
