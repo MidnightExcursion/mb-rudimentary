@@ -50,8 +50,22 @@ const handleAnswer = (message, serverGameState, playerKey) => {
 
         } else {
 
+            console.log(`> Game has ended!`);
+
             currentPlayerWebSocket.send(JSON.stringify({ type: 'gameOver', result: 'win' }));
             otherPlayerWebSocket.send(JSON.stringify({ type: 'gameOver', result: 'lose' }));
+
+            // Close both WebSocket connections
+            currentPlayerWebSocket.close();
+            console.log(`> Closed the current player's websocket`)
+            otherPlayerWebSocket.close();
+            console.log(`> Closed the other player's websocket.`)
+            
+            // Clean up server-side resources
+            delete serverGameState[playerKey];
+            delete serverGameState[otherPlayerKey];
+            
+            return;
 
         }
 
