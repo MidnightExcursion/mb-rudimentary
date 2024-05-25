@@ -1,0 +1,19 @@
+const ARITHMETIC_INSTRUCTIONS_1 = "Evaluate the arithmetic.";
+const ARITHMETIC_INSTRUCTIONS_2 = "Evaluate the following arithmetic.";
+const ARITHMETIC_INSTRUCTIONS_3 = "Perform the following calculation.";
+const ARITHMETIC_INSTRUCTIONS_4 = "Compute the result of the following arithmetic expression.";
+const POSSIBLE_ARITHMETIC_INSTRUCTIONS = [
+    ARITHMETIC_INSTRUCTIONS_1,
+    ARITHMETIC_INSTRUCTIONS_2,
+    ARITHMETIC_INSTRUCTIONS_3,
+    ARITHMETIC_INSTRUCTIONS_4
+];
+
+module.exports = {
+    ARITHMETIC_INSTRUCTIONS_1,
+    ARITHMETIC_INSTRUCTIONS_2,
+    ARITHMETIC_INSTRUCTIONS_3,
+    ARITHMETIC_INSTRUCTIONS_4,
+    POSSIBLE_ARITHMETIC_INSTRUCTIONS
+  };
+  
