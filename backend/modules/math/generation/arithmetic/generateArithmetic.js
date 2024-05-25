@@ -1,3 +1,5 @@
+const { generateRandomNaturalNumber } = require('./../../generation/numbers/generateNumbers');
+const generateMathBattlesProblemPacket = require('./../../mathPacket/generateMBPacket');
 
 const typesOfArithmeticOperations = require('./../../../../statics/math/arithmeticOperations/typesOfArithmeticOperations');
 const possibleArithmeticInstructions = require('../../../../statics/problemInstructions/arithmetic/arithmeticProblemInstructions');
@@ -61,7 +63,9 @@ const generateArithmeticProblem = () => {
     } 
     
     const mathBattlesProblemAnswerAsSring = String(mathBattlesProblemAnswerAsNumber)
-    const mathBattlesProblemAsString = `$$${randomlyChosenNaturalNumberOneAsString}${randomlyChosenArithmeticOperationAsString}${randomlyChosenNaturalNumberTwoAsString}$$`
+    const mathBattlesProblemAsString = `${randomlyChosenNaturalNumberOneAsString}${randomlyChosenArithmeticOperationAsString}${randomlyChosenNaturalNumberTwoAsString}`
+    // The line below is ONLY WHEN WE HAVE LATEX SUPPORT:
+    // const mathBattlesProblemAsString = `$$${randomlyChosenNaturalNumberOneAsString}${randomlyChosenArithmeticOperationAsString}${randomlyChosenNaturalNumberTwoAsString}$$`
 
     const mathBattlesProblemPacket = generateMathBattlesProblemPacket(mathBattlesProblemAsString, mathBattlesProblemAnswerAsSring, mathBattlesProblemInstructions);
     return mathBattlesProblemPacket;
