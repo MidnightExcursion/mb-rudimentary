@@ -10,10 +10,10 @@ const generateArithmeticProblem = () => {
     const mathBattlesProblemInstructions = pickRandomArithmeticInstructions();
 
     // (2): Randomly generate a random Natural Number:
-    const randomlyChosenNaturalNumberOneAsNumber = generateRandomNaturalNumber();
+    const randomlyChosenNaturalNumberOneAsNumber = generateRandomNaturalNumber(1, 15);
     
     // (3): Randomly generate another random Natural Number:
-    const randomlyChosenNaturalNumberTwoAsNumber = generateRandomNaturalNumber();
+    const randomlyChosenNaturalNumberTwoAsNumber = generateRandomNaturalNumber(1, 15);
 
     // (4): Cast the first random number to a String:
     const randomlyChosenNaturalNumberOneAsString = String(randomlyChosenNaturalNumberOneAsNumber);
