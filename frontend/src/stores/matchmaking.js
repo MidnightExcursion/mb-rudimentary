@@ -49,13 +49,11 @@ export const useGameStore = defineStore('game', {
 
                     console.log(`> Detected ${[data.player]} answered correctly.`)
 
-                    console.log(this.gameState[data.player])
-
                     // this.gameState[data.player].messages.push('Correct answer!');
-                    this.gameState[data.player].currentProblemIndex++;
+                    this.gameState[data.player].currentProblemIndex = this.gameState[data.player].currentProblemIndex + 1;
                     this.gameState[data.player].score++;
 
-                    console.log(this.gameState[data.player])
+                    console.log(this.gameState[data.player].currentProblemIndex)
 
                 } else if (data.type === 'incorrectAnswer') {
 

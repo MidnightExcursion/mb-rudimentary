@@ -11,26 +11,26 @@
                     <h2>You</h2>
                     <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
                     <input v-model="player1Answer" @keyup.enter="submitAnswer('player1')" />
-                    <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                    <p>{{ player1CurrentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
                 </div>
                 <div class="player" v-if="playerValue === 'player2'">
                     <h2>Opponent</h2>
                     <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
                     <input v-model="player1Answer" disabled />
-                    <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                    <p>{{ player1CurrentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
                 </div>
 
                 <div class="player" v-if="playerValue === 'player2'">
                     <h2>You</h2>
                     <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
                     <input v-model="player2Answer" @keyup.enter="submitAnswer('player2')" />
-                    <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                    <p>{{ player2CurrentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
                 </div>
                 <div class="player" v-if="playerValue === 'player1'">
                     <h2>Opponent</h2>
                     <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
                     <input v-model="player2Answer" disabled />
-                    <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                    <p>{{ player2CurrentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
                 </div>
             </div>
             <div v-else>
@@ -76,6 +76,8 @@ export default {
         const isConnectedToWebSocket = computed(() => store.websocket ?? false);
         const gameOver = computed(() => store.gameOver || false);
         const result = computed(() => store.result || false);
+        const player1CurrentProblemIndex = computed(() => store.gameState.player1.currentProblemIndex);
+        const player2CurrentProblemIndex = computed(() => store.gameState.player2.currentProblemIndex);
         const player1CurrentProblemData = computed(() => store.problems[store.gameState.player1.currentProblemIndex] || {});
         const player2CurrentProblemData = computed(() => store.problems[store.gameState.player2.currentProblemIndex] || {});
         const numberOfProblems = computed(() => store.problems.length || 0);
@@ -87,8 +89,8 @@ export default {
             gameOver,
             result,
             playerValue,
-            player1: store.gameState.player1,
-            player2: store.gameState.player2,
+            player1CurrentProblemIndex,
+            player2CurrentProblemIndex,
             numberOfProblems,
             player1Answer,
             player2Answer,
