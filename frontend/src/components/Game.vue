@@ -28,7 +28,7 @@
 
 <script>
 import { ref, computed, onMounted } from 'vue';
-import { useGameStore } from '../store';
+import { useGameStore } from '@/stores/store'
 
 export default {
     setup() {
