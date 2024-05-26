@@ -1,22 +1,32 @@
 <template>
     <div>
+        <div class ='joinMatchmaking'>
+            <button @click="connectToWebsocket">Join</button>
+        </div>
         <div v-if="!gameOver">
-            <div class="player">
-                <h2>Username</h2>
+            <div class="player" v-if="playerValue === 'player1'">
+                <h2>You</h2>
                 <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
                 <input v-model="player1Answer" @keyup.enter="submitAnswer('player1')" />
-                <!-- <ul>
-                    <li v-for="message in player1.messages" :key="message">{{ message }}</li>
-                </ul> -->
                 <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
             </div>
-            <div class="player">
+            <div class="player" v-if="playerValue === 'player2'">
                 <h2>Opponent</h2>
+                <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
+                <input v-model="player1Answer" disabled />
+                <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+            </div>
+
+            <div class="player" v-if="playerValue === 'player2'">
+                <h2>You</h2>
                 <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
                 <input v-model="player2Answer" @keyup.enter="submitAnswer('player2')" />
-                <!-- <ul>
-                    <li v-for="message in player2.messages" :key="message">{{ message }}</li>
-                </ul> -->
+                <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+            </div>
+            <div class="player" v-if="playerValue === 'player1'">
+                <h2>Opponent</h2>
+                <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
+                <input v-model="player2Answer" disabled />
                 <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
             </div>
         </div>
@@ -27,14 +37,19 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
-import { useGameStore } from '@/stores/store'
+import { ref, computed } from 'vue';
+import { useGameStore } from '@/stores/matchmaking'
 
 export default {
     setup() {
         const store = useGameStore();
         const player1Answer = ref('');
         const player2Answer = ref('');
+
+        const connectToWebsocket = () => {
+            console.log(`> User sent WS connection request...`)
+            store.connectWebsocket();
+        };
 
         const submitAnswer = (player) => {
 
@@ -53,10 +68,6 @@ export default {
 
         };
 
-        onMounted(() => {
-            store.connectWebsocket();
-        });
-
         const gameOver = computed(() => store.gameOver || false);
         const result = computed(() => store.result || false);
         const player1CurrentProblemData = computed(() => store.problems[store.gameState.player1.currentProblemIndex] || {});
@@ -64,8 +75,10 @@ export default {
         const numberOfProblems = computed(() => store.problems.length || 0);
 
         return {
+            connectToWebsocket,
             gameOver,
             result,
+            playerValue: store.userValue,
             player1: store.gameState.player1,
             player2: store.gameState.player2,
             numberOfProblems,

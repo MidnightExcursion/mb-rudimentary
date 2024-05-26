@@ -5,6 +5,7 @@ export const useGameStore = defineStore('game', {
         websocket: null,
         problems: [],
         currentProblem: 0,
+        userValue: '',
         gameState: {
             player1: { score: 0, currentProblemIndex: 0 },
             player2: { score: 0, currentProblemIndex: 0 },
@@ -37,8 +38,11 @@ export const useGameStore = defineStore('game', {
 
                 if (data.type === 'startGame') {
 
+                    console.log(data.player)
+
                     this.problems = data.problems;
                     this.gameState = data.gameState;
+                    this.userValue = data.player
 
                 } else if (data.type === 'correctAnswer') {
 
