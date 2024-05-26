@@ -1,38 +1,41 @@
 <template>
     <div>
         <div class ='joinMatchmaking'>
-            <button @click="connectToWebsocket">Join</button>
+            <button @click="connectToWebsocket">Join Matchmaking Queue</button>
         </div>
-        <div v-if="!gameOver">
-            <div class="player" v-if="playerValue === 'player1'">
-                <h2>You</h2>
-                <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
-                <input v-model="player1Answer" @keyup.enter="submitAnswer('player1')" />
-                <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
-            </div>
-            <div class="player" v-if="playerValue === 'player2'">
-                <h2>Opponent</h2>
-                <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
-                <input v-model="player1Answer" disabled />
-                <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
-            </div>
+        <div v-if="connected">
+            <div v-if="!gameOver">
+                <div class="player" v-if="playerValue === 'player1'">
+                    <h2>You</h2>
+                    <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
+                    <input v-model="player1Answer" @keyup.enter="submitAnswer('player1')" />
+                    <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                </div>
+                <div class="player" v-if="playerValue === 'player2'">
+                    <h2>Opponent</h2>
+                    <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
+                    <input v-model="player1Answer" disabled />
+                    <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                </div>
 
-            <div class="player" v-if="playerValue === 'player2'">
-                <h2>You</h2>
-                <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
-                <input v-model="player2Answer" @keyup.enter="submitAnswer('player2')" />
-                <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                <div class="player" v-if="playerValue === 'player2'">
+                    <h2>You</h2>
+                    <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
+                    <input v-model="player2Answer" @keyup.enter="submitAnswer('player2')" />
+                    <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                </div>
+                <div class="player" v-if="playerValue === 'player1'">
+                    <h2>Opponent</h2>
+                    <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
+                    <input v-model="player2Answer" disabled />
+                    <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+                </div>
             </div>
-            <div class="player" v-if="playerValue === 'player1'">
-                <h2>Opponent</h2>
-                <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
-                <input v-model="player2Answer" disabled />
-                <p>{{ player2.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
+            <div v-else>
+                <h1>{{ result === 'win' ? 'You Win!' : 'You Lose!' }}</h1>
             </div>
         </div>
-        <div v-else>
-            <h1>{{ result === 'win' ? 'You Win!' : 'You Lose!' }}</h1>
-        </div>
+
     </div>
 </template>
 
@@ -68,6 +71,7 @@ export default {
 
         };
 
+        const isConnectedToWebSocket = computed(() => store.websocket ?? false);
         const gameOver = computed(() => store.gameOver || false);
         const result = computed(() => store.result || false);
         const player1CurrentProblemData = computed(() => store.problems[store.gameState.player1.currentProblemIndex] || {});
@@ -76,6 +80,7 @@ export default {
 
         return {
             connectToWebsocket,
+            isConnectedToWebSocket,
             gameOver,
             result,
             playerValue: store.userValue,
