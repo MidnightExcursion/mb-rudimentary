@@ -43,6 +43,7 @@ export const useGameStore = defineStore('game', {
                     this.problems = data.problems;
                     this.gameState = data.gameState;
                     this.userValue = data.player
+                    console.log(this.userValue)
 
                 } else if (data.type === 'correctAnswer') {
 

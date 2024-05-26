@@ -1,9 +1,11 @@
 <template>
     <div>
-        <div class ='joinMatchmaking'>
-            <button @click="connectToWebsocket">Join Matchmaking Queue</button>
+        <div v-if="!isConnectedToWebSocket">
+            <div class ='joinMatchmaking'>
+                <button @click="connectToWebsocket">Join Matchmaking Queue</button>
+            </div>
         </div>
-        <div v-if="connected">
+        <div v-if="isConnectedToWebSocket">
             <div v-if="!gameOver">
                 <div class="player" v-if="playerValue === 'player1'">
                     <h2>You</h2>
@@ -77,13 +79,14 @@ export default {
         const player1CurrentProblemData = computed(() => store.problems[store.gameState.player1.currentProblemIndex] || {});
         const player2CurrentProblemData = computed(() => store.problems[store.gameState.player2.currentProblemIndex] || {});
         const numberOfProblems = computed(() => store.problems.length || 0);
+        const playerValue = computed(() => store.userValue || '');
 
         return {
             connectToWebsocket,
             isConnectedToWebSocket,
             gameOver,
             result,
-            playerValue: store.userValue,
+            playerValue,
             player1: store.gameState.player1,
             player2: store.gameState.player2,
             numberOfProblems,
