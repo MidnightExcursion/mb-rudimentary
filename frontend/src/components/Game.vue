@@ -2,7 +2,7 @@
     <div>
         <div v-if="!gameOver">
             <div class="player">
-                <h2>Player 1</h2>
+                <h2>Username</h2>
                 <h3>Current Problem: {{ player1CurrentProblemData.question }}</h3>
                 <input v-model="player1Answer" @keyup.enter="submitAnswer('player1')" />
                 <!-- <ul>
@@ -11,7 +11,7 @@
                 <p>{{ player1.currentProblemIndex || 0 }}/{{ numberOfProblems }}</p>
             </div>
             <div class="player">
-                <h2>Player 2</h2>
+                <h2>Opponent</h2>
                 <h3>Current Problem: {{ player2CurrentProblemData.question }}</h3>
                 <input v-model="player2Answer" @keyup.enter="submitAnswer('player2')" />
                 <!-- <ul>
